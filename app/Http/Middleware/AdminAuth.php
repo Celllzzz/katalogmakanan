@@ -12,7 +12,7 @@ class AdminAuth
     {
         // Cek apakah session admin_id ada
         if (!Session::has('admin_id')) {
-            return redirect()->route('admin.login');
+            return redirect()->route('login');
         }
 
         return $next($request);

@@ -40,7 +40,7 @@ class AdminAuthController extends Controller
     public function logout()
     {
         Session::forget('admin_id');
-        return redirect()->route('admin.login');
+        return redirect()->route('login');
     }
 
     // Tampilkan halaman dashboard admin
