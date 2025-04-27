@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AdminAuthController extends Controller
 {
+    // Tampilkan form login admin
     public function showLoginForm()
     {
         return view('admin.login');
     }
 
+    // Proses login admin
     public function login(Request $request)
     {
         $request->validate([
@@ -21,19 +23,29 @@ class AdminAuthController extends Controller
             'password' => 'required'
         ]);
 
-        $credentials = $request->only('email', 'password');
+        $admin = Admin::where('email', $request->email)->first();
 
-        if (Auth::guard('web')->attempt($credentials)) {
-            return redirect()->intended('/admin/dashboard');
+        if ($admin && Hash::check($request->password, $admin->password)) {
+            // Simpan admin_id ke session
+            Session::put('admin_id', $admin->id);
+            return redirect()->route('admin.dashboard');
+        } else {
+            return back()->withErrors([
+                'email' => 'Email atau Password salah!'
+            ])->withInput();
         }
-
-        return back()->withErrors(['email' => 'Email atau password salah.']);
     }
 
+    // Logout admin
     public function logout()
     {
-        Auth::logout();
-        return redirect('/admin/login');
+        Session::forget('admin_id');
+        return redirect()->route('admin.login');
+    }
+
+    // Tampilkan halaman dashboard admin
+    public function dashboard()
+    {
+        return view('admin.dashboard');
     }
 }
-
