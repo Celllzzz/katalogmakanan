@@ -13,8 +13,10 @@ Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.
 // Route untuk logout
 Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
-// Route untuk dashboard admin (nanti kita proteksi pakai middleware)
-Route::get('/admin/dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
+// Route untuk mengatur hanya admin yabng bisa login
+Route::middleware('auth:admin')->group(function () {
+    Route::get('/admin/dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
+});
 
 
 
