@@ -47,7 +47,7 @@ Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kat
 Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori.store');
 
 // Route untuk halaman trash, restore, force delete, dan soft delete
-Route::delete('/kategori/{id_kategori}', [KategoriController::class, 'softDelete'])->name('kategori.softDelete');
+Route::delete('/kategori/{id_kategori}', [KategoriController::class, 'softDelete'])->name('kategori.softDelete'); //soft delete
 Route::get('kategori/trash', [KategoriController::class, 'trashPage'])->name('kategori.trash'); // Menampilkan kategori yang dihapus
 Route::post('kategori/restore/{id}', [KategoriController::class, 'restore'])->name('kategori.restore'); // Restore kategori
 Route::delete('kategori/force-delete/{id}', [KategoriController::class, 'forceDelete'])->name('kategori.forceDelete'); // Hapus permanen kategori
