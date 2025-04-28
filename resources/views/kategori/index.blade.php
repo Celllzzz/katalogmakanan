@@ -43,13 +43,14 @@
                     row.innerHTML = `
                         <td>${category.id_kategori}</td>
                         <td>${category.nama_kategori}</td>
-                        <td>
-                            <div class="category-description">${category.deskripsi}</div>
-                        </td>
+                        <td>${category.deskripsi.substring(0, 50)}...</td> <!-- Batasi deskripsi -->
                         <td>${new Date(category.created_at).toLocaleDateString()}</td>
                         <td>
+                            <!-- Tombol Edit -->
                             <a href="/kategori/${category.id_kategori}/edit" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="/categories/${category.id_kategori}" method="POST" class="d-inline">
+
+                            <!-- Soft Delete -->
+                            <form action="/kategori/${category.id_kategori}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus kategori ini?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>

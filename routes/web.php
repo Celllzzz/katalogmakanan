@@ -22,7 +22,8 @@ Route::get('/admin/dashboard', [AdminAuthController::class, 'dashboard'])->name(
 // Halaman recipe/makanan
 Route::get('/makanan', function () {return view('makanan.index');})->name('makanan.index');
 
-// ROUTE KATEGORI
+
+//  ROUTE KATEGORI //
 // Halaman kategori
 Route::get('/kategori', function () {return view('kategori.index');})->name('kategori.index');
 
@@ -38,3 +39,15 @@ Route::post('/kategori', [kategoriController::class, 'store'])->name('kategori.s
 // Route edit kategori
 Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
 Route::put('/kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+
+//route create kategori
+// Menampilkan form create kategori
+Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
+// Menyimpan kategori baru
+Route::post('/kategori', [KategoriController::class, 'store'])->name('kategori.store');
+
+// Route untuk halaman trash, restore, force delete, dan soft delete
+Route::delete('/kategori/{id_kategori}', [KategoriController::class, 'softDelete'])->name('kategori.softDelete');
+Route::get('kategori/trash', [KategoriController::class, 'trashPage'])->name('kategori.trash'); // Menampilkan kategori yang dihapus
+Route::post('kategori/restore/{id}', [KategoriController::class, 'restore'])->name('kategori.restore'); // Restore kategori
+Route::delete('kategori/force-delete/{id}', [KategoriController::class, 'forceDelete'])->name('kategori.forceDelete'); // Hapus permanen kategori

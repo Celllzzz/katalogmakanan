@@ -15,6 +15,11 @@ class kategoriController extends Controller
     }
 
    
+    public function create()
+    {
+        return view('kategori.create');
+    }
+
     // membuat data kategori
     public function store(Request $request)
     {   
@@ -31,8 +36,8 @@ class kategoriController extends Controller
             'deskripsi' => $request->deskripsi,
         ]);
 
-        // mengembalikan respon JSON bahwa kategori berhasil ditambahkan
-        return response()->json(['message' => 'Kategori berhasil ditambahkan', 'data' => $kategori]);
+        // mengembalikan respon
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan');
     }
 
 
@@ -55,7 +60,6 @@ class kategoriController extends Controller
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil diperbarui.');
     }
     
-
     public function edit($id)
     {
     $kategori = kategori::find($id);
@@ -67,48 +71,50 @@ class kategoriController extends Controller
     return view('kategori.edit', compact('kategori'));
     }
 
+    // Soft delete kategori
+    public function softDelete($id)
+    {
+        $kategori = kategori::find($id);
 
+        if (!$kategori) {
+        return redirect()->route('kategori.index')->with('error', 'Kategori tidak ditemukan');
+        }
+
+        // Soft delete kategori
+        $kategori->delete();
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dipindahkan ke trash');
+    }
     
-    // soft delete
-    public function trash()
+    // Menampilkan kategori yang sudah di soft delete
+    public function trashPage()
     {
-        return response()->json(kategori::onlyTrashed()->get());
+        // Mengambil semua kategori yang telah dihapus (soft delete)
+        $kategori = kategori::onlyTrashed()->get();
+        return view('kategori.trash', compact('kategori'));
     }
 
-    public function showTrash()
-    {
-    // Mengambil semua kategori yang telah dihapus (soft delete)
-    $kategori = Kategori::onlyTrashed()->get();
-
-    // Jika tidak ada kategori yang dihapus, kembalikan pesan error
-    if ($kategori->isEmpty()) {
-        return response()->json(['message' => 'Tidak ada kategori di trash'], 404);
-    }
-
-    return response()->json($kategori);
-    }
-
-
-    // mengembalikan kategori yang sudah dihapus
-    public function restore($id) 
+    // Mengembalikan kategori yang sudah dihapus
+    public function restore($id)
     {
         $kategori = kategori::onlyTrashed()->where('id_kategori', $id)->first();
-        if (!$kategori) return response()->json(['message' => 'Kategori tidak ditemukan di trash'], 404); 
+        if (!$kategori) {
+            return redirect()->route('kategori.trash')->with('error', 'Kategori tidak ditemukan di trash');
+        }
 
         // Restore kategori
         $kategori->restore();
-        return response()->json(['message' => 'Kategori berhasil dikembalikan', 'data' => $kategori]);
+        return redirect()->route('kategori.trash')->with('success', 'Kategori berhasil dikembalikan');
     }
 
-
-    // menghpuas makanan secara permanen
-    public function forceDelete($id) 
+    // Menghapus kategori secara permanen
+    public function forceDelete($id)
     {
         $kategori = kategori::onlyTrashed()->where('id_kategori', $id)->first();
-        if (!$kategori) return response()->json(['message' => ',Kategori tidak ditemukan di trash'], 404);
+        if (!$kategori) {
+            return redirect()->route('kategori.trash')->with('error', 'Kategori tidak ditemukan di trash');
+        }
 
         $kategori->forceDelete();
-        return response()->json(['message' => 'Kategori dihapus permanen']);
-        
+        return redirect()->route('kategori.trash')->with('success', 'Kategori dihapus permanen');
     }
 }
