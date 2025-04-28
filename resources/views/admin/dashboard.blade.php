@@ -1,18 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <h1>Welcome to Admin Dashboard</h1>
+@extends('layout.app')
 
-        <form action="{{ route('admin.logout') }}" method="POST">
-            @csrf
-            <button class="btn btn-danger">Logout</button>
-        </form>
+@section('title', 'Home')
+
+@section('content')
+    <div class="container">
+        <h1 class="mb-4">Welcome Back, {{ $adminName ?? 'Admin' }}!</h1>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Category</h5>
+                        <p class="card-text display-6">{{ $totalCategory ?? 0 }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Recipe</h5>
+                        <p class="card-text display-6">{{ $totalRecipe ?? 0 }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+@endsection

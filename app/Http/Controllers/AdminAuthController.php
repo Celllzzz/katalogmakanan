@@ -46,6 +46,16 @@ class AdminAuthController extends Controller
     // Tampilkan halaman dashboard admin
     public function dashboard()
     {
-        return view('admin.dashboard');
+    $admin = Admin::where('id', Session::get('admin_id'))->first();
+
+    $totalCategory = \App\Models\kategori::count();
+    $totalRecipe = \App\Models\makanan::count(); // Sesuaikan nama model makanan/recipe kamu
+
+    return view('admin.dashboard', [
+        'adminName' => $admin->name,
+        'totalCategory' => $totalCategory,
+        'totalRecipe' => $totalRecipe,
+    ]);
     }
+
 }
