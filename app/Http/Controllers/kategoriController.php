@@ -15,7 +15,7 @@ class kategoriController extends Controller
     }
 
    
-    // menyimpan data kategori
+    // membuat data kategori
     public function store(Request $request)
     {   
         // validasi input yang diterima dari request
@@ -42,21 +42,31 @@ class kategoriController extends Controller
     // meng update data makanan
     public function update(Request $request, string $id)
     {
-        // mencari kategori berdasarkan id
         $kategori = kategori::find($id);
-        if (!$kategori) return response()->json(['messgage' => 'Kategori tidak ditemukan'],404);
-
-        // validasi input
+        if (!$kategori) return abort(404, 'Kategori tidak ditemukan');
+    
         $request->validate([
             'nama_kategori' => 'required|string|max:100',
             'deskripsi' => 'required|string',
         ]);
-
-        // update data makanan
-        $kategori->update($request->all());
-
-        return response()->json(['message' => 'Kategori berhasil diperbarui', 'data' => $kategori]);
+    
+        $kategori->update($request->only(['nama_kategori', 'deskripsi']));
+    
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil diperbarui.');
     }
+    
+
+    public function edit($id)
+    {
+    $kategori = kategori::find($id);
+
+    if (!$kategori) {
+        abort(404, 'Kategori tidak ditemukan');
+    }
+
+    return view('kategori.edit', compact('kategori'));
+    }
+
 
     
     // soft delete
@@ -84,6 +94,10 @@ class kategoriController extends Controller
     {
         $kategori = kategori::onlyTrashed()->where('id_kategori', $id)->first();
         if (!$kategori) return response()->json(['message' => 'Kategori tidak ditemukan di trash'], 404); 
+
+        // Restore kategori
+        $kategori->restore();
+        return response()->json(['message' => 'Kategori berhasil dikembalikan', 'data' => $kategori]);
     }
 
 

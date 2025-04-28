@@ -13,7 +13,7 @@ class kategori extends Model
     protected $table = 'kategori';
     protected $primaryKey = 'id_kategori';
     protected $fillable = ['nama_kategori', 'deskripsi'];
-    protected $date = ['deleted_at']; //soft delete
+    protected $dates = ['deleted_at']; //soft delete
 
     //relasi: memiliki banyak makanan'
     public function makanans(){
