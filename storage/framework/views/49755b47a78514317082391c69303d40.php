@@ -1,18 +1,18 @@
-@extends('layout.app')
 
-@section('title', 'Category')
 
-@section('content')
+<?php $__env->startSection('title', 'Category'); ?>
+
+<?php $__env->startSection('content'); ?>
     <div class="container">
         <h1 class="text-3xl font-bold mb-4">Category</h1>
 
         <!-- Tombol untuk Create Kategori Baru dan Trash -->
         <div class="mb-4">
             <!-- Tombol Create Category -->
-            <a href="{{ route('kategori.create') }}" class="btn btn-primary me-3">Create Category</a>
+            <a href="<?php echo e(route('kategori.create')); ?>" class="btn btn-primary me-3">Create Category</a>
 
             <!-- Tombol menuju halaman trash -->
-            <a href="{{ route('kategori.trash') }}" class="btn btn-danger">Lihat Trash</a>
+            <a href="<?php echo e(route('kategori.trash')); ?>" class="btn btn-danger">Lihat Trash</a>
         </div>
 
         <!-- Tabel Daftar Kategori -->
@@ -50,8 +50,8 @@
                         <td>
                             <a href="/kategori/${category.id_kategori}/edit" class="btn btn-warning btn-sm">Edit</a>
                             <form action="/categories/${category.id_kategori}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
+                                <?php echo csrf_field(); ?>
+                                <?php echo method_field('DELETE'); ?>
                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </td>
@@ -65,4 +65,6 @@
     </script>
 
     
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\Program Files Juga\xampp\htdocs\katalogmakanan\resources\views/kategori/index.blade.php ENDPATH**/ ?>
