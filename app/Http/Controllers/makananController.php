@@ -156,45 +156,51 @@ class makananController extends Controller
         return redirect()->route('makanan.index')->with('success', 'Makanan berhasil diperbarui.');
     }
 
-
-
-    // soft delete
-    public function trash()
+    // Soft delete kategori
+    public function softDelete($id)
     {
-        return response()->json(makanan::onlyTrashed()->get());
-    }
+        $makanan = makanan::find($id);
 
-    public function showTrash()
+        if (!$makanan) {
+        return redirect()->route('makanan.index')->with('error', 'Makanan tidak ditemukan');
+        }
+
+        // Soft delete kategori
+        $makanan->delete();
+        return redirect()->route('makanan.index')->with('success', 'Makanan berhasil dipindahkan ke trash');
+    }
+    
+    // Menampilkan kategori yang sudah di soft delete
+    public function trashPage()
     {
-    // Mengambil semua makanan yang telah dihapus (soft delete)
-    $makanan = Makanan::onlyTrashed()->with('kategori')->get();
-
-    // Jika tidak ada makanan yang dihapus, kembalikan pesan error
-    if ($makanan->isEmpty()) {
-        return response()->json(['message' => 'Tidak ada makanan di trash'], 404);
+        // Mengambil semua kategori yang telah dihapus (soft delete)
+        $makanan = makanan::onlyTrashed()->get();
+        return view('makanan.trash', compact('makanan'));
     }
 
-    return response()->json($makanan);
-    }
-
-
-    // mengembalikan makanan yang sudah dihapus
-    public function restore($id) 
-    {
-        $makanan = makanan::onlyTrashed()->where('id_makanan', $id)->first();
-        if (!$makanan) return response()->json(['message' => ',Makanan tidak ditemukan di trash'], 404); 
-    }
-
-
-    // menghapus makanan secara permanen
-    public function forceDelete($id) 
+    // Mengembalikan makanan yang sudah dihapus
+    public function restore($id)
     {
         $makanan = makanan::onlyTrashed()->where('id_makanan', $id)->first();
-        if (!$makanan) return response()->json(['message' => 'Makanan tidak ditemukan di trash'], 404);
+        if (!$makanan) {
+            return redirect()->route('makanan.trash')->with('error', 'Makanan tidak ditemukan di trash');
+        }
+
+        // Restore kategori
+        $makanan->restore();
+        return redirect()->route('makanan.trash')->with('success', 'Makanan berhasil dikembalikan');
+    }
+
+    // Menghapus kategori secara permanen
+    public function forceDelete($id)
+    {
+        $makanan = makanan::onlyTrashed()->where('id_makanan', $id)->first();
+        if (!$makanan) {
+            return redirect()->route('makanan.trash')->with('error', 'Makanan tidak ditemukan di trash');
+        }
 
         $makanan->forceDelete();
-        return response()->json(['message' => 'Makanan dihapus permanen']);
-        
+        return redirect()->route('makanan.trash')->with('success', 'Makanan dihapus permanen');
     }
 
 }
