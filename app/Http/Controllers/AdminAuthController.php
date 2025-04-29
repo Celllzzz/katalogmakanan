@@ -51,7 +51,7 @@ class AdminAuthController extends Controller
     $totalCategory = \App\Models\kategori::count();
     $totalRecipe = \App\Models\makanan::count(); // Sesuaikan nama model makanan/recipe kamu
 
-    return view('admin.dashboard', [
+    return view('dashboard', [
         'adminName' => $admin->name,
         'totalCategory' => $totalCategory,
         'totalRecipe' => $totalRecipe,

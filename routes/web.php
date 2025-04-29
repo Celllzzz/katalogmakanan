@@ -17,7 +17,7 @@ Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.
 Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
 // Route untuk mengatur hanya admin yang bisa login
-Route::get('/admin/dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard')->middleware(AdminAuth::class);
+Route::get('dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard')->middleware(AdminAuth::class);
 
 
 
