@@ -62,13 +62,13 @@ class kategoriController extends Controller
     
     public function edit($id)
     {
-    $kategori = kategori::find($id);
+        $kategori = kategori::find($id);
 
-    if (!$kategori) {
+        if (!$kategori) {
         abort(404, 'Kategori tidak ditemukan');
-    }
+        }
 
-    return view('kategori.edit', compact('kategori'));
+        return view('kategori.edit', compact('kategori'));
     }
 
     // Soft delete kategori
