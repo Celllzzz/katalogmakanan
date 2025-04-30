@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
     <style>
         body {
+            font-family: 'Poppins';
             background-color: #E15A24; /* Warna background orange */
             height: 100vh;
             display: flex;
@@ -34,7 +39,9 @@
             font-weight: bold;
         }
         .btn-orange:hover {
-            background-color: #cf4e1f;
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #E15A24;
         }
     </style>
 </head>
@@ -43,7 +50,8 @@
     <div class="login-card text-center">
         <img src="<?php echo e(asset('pictures/logo(1).png')); ?>" alt="Logo" class="logo mx-auto d-block">
         <h5 class="mt-3 fw-bold">WELCOME BACK, ADMIN!</h5>
-        <p class="text-muted mb-4">Enter your credentials to access your account</p>
+        <p class="text-muted mb-4">Enter your credentials to access 
+            your account</p>
 
         <?php if($errors->any()): ?>
             <div class="alert alert-danger">
