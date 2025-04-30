@@ -9,7 +9,7 @@
 
         <!-- Tombol untuk Create Kategori Baru dan Trash -->
         <div class="mb-4 d-flex gap-2">
-            <a href="<?php echo e(route('kategori.create')); ?>" class="btn btn-primary">Create Category</a>
+            <a href="<?php echo e(route('kategori.create')); ?>" class="btn btn-primary">Create Kategori</a>
             <a href="<?php echo e(route('kategori.trash')); ?>" class="btn btn-danger">Lihat Trash</a>
         </div>
 
