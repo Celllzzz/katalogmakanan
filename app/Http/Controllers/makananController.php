@@ -199,6 +199,11 @@ class makananController extends Controller
             return redirect()->route('makanan.trash')->with('error', 'Makanan tidak ditemukan di trash');
         }
 
+        // Hapus gambar jika ada
+        if ($makanan->gambar && Storage::disk('public')->exists('makanan_photos/' . $makanan->gambar)) {
+        Storage::disk('public')->delete('makanan_photos/' . $makanan->gambar);
+        }
+
         $makanan->forceDelete();
         return redirect()->route('makanan.trash')->with('success', 'Makanan dihapus permanen');
     }
