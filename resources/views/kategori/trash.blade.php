@@ -1,12 +1,11 @@
 @extends('layout.app')
 
-@section('title', 'Trash - Category')
+@section('title', 'Trash - Kategori')
 
 @section('content')
     <div class="container">
-        <h1 class="text-3xl font-bold mb-4">Trash - Kategori</h1>
+        <h1 class="text-3xl fw-bold mb-4">Trash - Kategori</h1>
 
-        <!-- Pesan sukses atau error -->
         @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -19,8 +18,7 @@
 
         <a href="{{ route('kategori.index') }}" class="btn btn-secondary mb-4">Back</a>
 
-        <!-- Tabel kategori yang dihapus -->
-        <table class="table table-bordered table-transparent">
+        <table class="custom-table">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -38,13 +36,10 @@
                         <td>{{ Str::limit($item->deskripsi, 50) }}</td>
                         <td>{{ $item->deleted_at->format('d/m/Y') }}</td>
                         <td>
-                            <!-- Tombol Restore -->
                             <form action="{{ route('kategori.restore', $item->id_kategori) }}" method="POST" style="display:inline;">
                                 @csrf
                                 <button type="submit" class="btn btn-success btn-sm">Restore</button>
                             </form>
-
-                            <!-- Tombol Force Delete -->
                             <form action="{{ route('kategori.forceDelete', $item->id_kategori) }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini secara permanen?');">
                                 @csrf
                                 @method('DELETE')

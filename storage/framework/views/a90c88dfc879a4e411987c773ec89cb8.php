@@ -1,21 +1,20 @@
 <?php $__env->startSection('title', 'Makanan'); ?>
 
 <?php $__env->startSection('content'); ?>
+    
+
     <div class="container">
         <h1 class="text-3xl font-bold mb-4">Makanan</h1>
 
         <!-- Tombol untuk Create Makanan Baru dan Trash -->
-        <div class="mb-4">
-            <!-- Tombol Create Makanan -->
-            <a href="<?php echo e(route('makanan.create')); ?>" class="btn btn-primary me-3">Create Makanan</a>
-
-            <!-- Tombol menuju halaman trash -->
+        <div class="mb-4 d-flex gap-2">
+            <a href="<?php echo e(route('makanan.create')); ?>" class="btn btn-primary">Create Makanan</a>
             <a href="<?php echo e(route('makanan.trash')); ?>" class="btn btn-danger">Lihat Trash</a>
         </div>
 
         <!-- Tabel Daftar Makanan -->
-        <table class="table table-transparent table-hover" id="makanan-table">
-            <thead class="table-dark">
+        <table class="custom-table" id="makanan-table">
+            <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nama Makanan</th>
@@ -46,18 +45,15 @@
                         <td>${makanan.id_makanan}</td>
                         <td>${makanan.nama_makanan}</td>
                         <td>${makanan.kategori ? makanan.kategori.nama_kategori : '-'}</td>
-                        <td>${makanan.deskripsi.substring(0, 30)}...</td>
-                        <td>${makanan.resep.substring(0, 30)}...</td>
-                        <td>${makanan.cara_masak.substring(0, 30)}...</td>
+                        <td class="text-start-column">${makanan.deskripsi.substring(0, 30)}...</td>
+                        <td class="text-start-column">${makanan.resep.substring(0, 30)}...</td>
+                        <td class="text-start-column">${makanan.cara_masak.substring(0, 30)}...</td>
                         <td>
-                            <img src="/storage/makanan_photos/${makanan.gambar}" width="80" alt="gambar">
+                            <img src="/storage/makanan_photos/${makanan.gambar}" width="100" height="100" alt="gambar">
                         </td>
                         <td>${new Date(makanan.created_at).toLocaleDateString()}</td>
                         <td>
-                            <!-- Tombol Edit -->
                             <a href="/makanan/${makanan.id_makanan}/edit" class="btn btn-warning btn-sm mb-1">Edit</a>
-
-                            <!-- Soft Delete -->
                             <form action="/makanan/${makanan.id_makanan}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus makanan ini?')">
                                 <?php echo csrf_field(); ?>
                                 <?php echo method_field('DELETE'); ?>

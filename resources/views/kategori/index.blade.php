@@ -1,23 +1,23 @@
 @extends('layout.app')
 
-@section('title', 'Category')
+@section('title', 'Kategori')
 
 @section('content')
+    <!-- Link ke file CSS terpisah -->
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
     <div class="container">
-        <h1 class="text-3xl font-bold mb-4">Category</h1>
+        <h1 class="text-3xl fw-bold mb-4">Kategori</h1>
 
         <!-- Tombol untuk Create Kategori Baru dan Trash -->
-        <div class="mb-4">
-            <!-- Tombol Create Category -->
-            <a href="{{ route('kategori.create') }}" class="btn btn-primary me-3">Create Category</a>
-
-            <!-- Tombol menuju halaman trash -->
+        <div class="mb-4 d-flex gap-2">
+            <a href="{{ route('kategori.create') }}" class="btn btn-primary">Create Kategori</a>
             <a href="{{ route('kategori.trash') }}" class="btn btn-danger">Lihat Trash</a>
         </div>
 
         <!-- Tabel Daftar Kategori -->
-        <table class="table table-transparent table-hover" id="categories-table">
-            <thead class="table-dark">
+        <table class="custom-table" id="categories-table">
+            <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nama Kategori</th>
@@ -34,7 +34,7 @@
 
     <script>
         // Mengambil data kategori dari API
-        fetch('http://127.0.0.1:8000/api/kategori') // URL API yang mengembalikan daftar kategori
+        fetch('http://127.0.0.1:8000/api/kategori')
             .then(response => response.json())
             .then(data => {
                 const tableBody = document.querySelector('#categories-table tbody');
@@ -43,13 +43,10 @@
                     row.innerHTML = `
                         <td>${category.id_kategori}</td>
                         <td>${category.nama_kategori}</td>
-                        <td>${category.deskripsi.substring(0, 50)}...</td> <!-- Batasi deskripsi -->
+                        <td class="text-start-column">${category.deskripsi.substring(0, 50)}...</td>
                         <td>${new Date(category.created_at).toLocaleDateString()}</td>
                         <td>
-                            <!-- Tombol Edit -->
                             <a href="/kategori/${category.id_kategori}/edit" class="btn btn-warning btn-sm">Edit</a>
-
-                            <!-- Soft Delete -->
                             <form action="/kategori/${category.id_kategori}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus kategori ini?')">
                                 @csrf
                                 @method('DELETE')
@@ -64,6 +61,4 @@
                 console.error('Error fetching categories:', error);
             });
     </script>
-
-    
 @endsection

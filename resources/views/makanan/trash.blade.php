@@ -20,7 +20,7 @@
         <a href="{{ route('makanan.index') }}" class="btn btn-secondary mb-4">Kembali</a>
 
         <!-- Tabel makanan yang dihapus -->
-        <table class="table table-bordered table-transparent">
+        <table class="custom-table">
             <thead>
                 <tr>
                     <th>ID</th>
