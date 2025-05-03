@@ -18,6 +18,9 @@ Route::get('/user', function (Request $request) {
 // GET /api/makanan - menampilkan semua data makanan
 Route::get('makanan', [makananController::class, 'index']);
 
+// GET /api/makanan/{id} - menampilkan data makanan berdasarkan ID
+Route::get('/makanan/{id}', [MakananController::class, 'show']);
+
 // GET /api/makanan - mencari makanan berdasarkan nama dan kategori
 Route::get('makanan/search', [makananController::class, 'search']);
 

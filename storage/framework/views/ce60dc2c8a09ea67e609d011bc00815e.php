@@ -1,8 +1,6 @@
-@extends('layout.app')
+<?php $__env->startSection('title', 'Makanan'); ?>
 
-@section('title', 'Makanan')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     
 
     <div class="container">
@@ -10,8 +8,8 @@
 
         <!-- Tombol untuk Create Makanan Baru dan Trash -->
         <div class="mb-4 d-flex gap-2">
-            <a href="{{ route('makanan.create') }}" class="btn btn-primary">Create Makanan</a>
-            <a href="{{ route('makanan.trash') }}" class="btn btn-danger">Lihat Trash</a>
+            <a href="<?php echo e(route('makanan.create')); ?>" class="btn btn-primary">Create Makanan</a>
+            <a href="<?php echo e(route('makanan.trash')); ?>" class="btn btn-danger">Lihat Trash</a>
         </div>
 
         <!-- Tabel Daftar Makanan -->
@@ -57,8 +55,8 @@
                         <td>
                             <a href="/makanan/${makanan.id_makanan}/edit" class="btn btn-warning btn-sm mb-1">Edit</a>
                             <form action="/makanan/${makanan.id_makanan}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus makanan ini?')">
-                                @csrf
-                                @method('DELETE')
+                                <?php echo csrf_field(); ?>
+                                <?php echo method_field('DELETE'); ?>
                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </td>
@@ -70,4 +68,6 @@
                 console.error('Error fetching makanan:', error);
             });
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\Coding\katalogmakanan-PraktikumRPL\katalogmakanan\resources\views/makanan/index.blade.php ENDPATH**/ ?>

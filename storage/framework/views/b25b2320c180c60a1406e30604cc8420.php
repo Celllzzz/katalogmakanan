@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="{{ asset('pictures/logo(2).png') }}">
+    <link rel="icon" type="image/png" href="<?php echo e(asset('pictures/logo(2).png')); ?>">
 
     <style>
         body {
@@ -49,21 +49,22 @@
 <body>
 
     <div class="login-card text-center">
-        <img src="{{ asset('pictures/logo(1).png') }}" alt="Logo" class="logo mx-auto d-block">
+        <img src="<?php echo e(asset('pictures/logo(1).png')); ?>" alt="Logo" class="logo mx-auto d-block">
         <h5 class="mt-3 fw-bold">WELCOME BACK, ADMIN!</h5>
         <p class="text-muted mb-4">Enter your credentials to access your account</p>
 
-        @if ($errors->any())
+        <?php if($errors->any()): ?>
             <div class="alert alert-danger">
-                {{ $errors->first() }}
-            </div>
-        @endif
+                <?php echo e($errors->first()); ?>
 
-        <form action="{{ route('admin.login.submit') }}" method="POST">
-            @csrf
+            </div>
+        <?php endif; ?>
+
+        <form action="<?php echo e(route('admin.login.submit')); ?>" method="POST">
+            <?php echo csrf_field(); ?>
             <div class="mb-3 text-start">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required value="{{ old('email') }}">
+                <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required value="<?php echo e(old('email')); ?>">
             </div>
 
             <div class="mb-4 text-start">
@@ -77,3 +78,4 @@
 
 </body>
 </html>
+<?php /**PATH D:\Coding\katalogmakanan-PraktikumRPL\katalogmakanan\resources\views/admin/login.blade.php ENDPATH**/ ?>

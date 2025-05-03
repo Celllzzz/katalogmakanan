@@ -48,4 +48,4 @@
     </div>
 
 </body>
-</html><?php /**PATH D:\Coding\katalogmakanan\resources\views/layout/app.blade.php ENDPATH**/ ?>
+</html><?php /**PATH D:\Coding\katalogmakanan-PraktikumRPL\katalogmakanan\resources\views/layout/app.blade.php ENDPATH**/ ?>

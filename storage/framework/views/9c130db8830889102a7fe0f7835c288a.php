@@ -1,18 +1,16 @@
-@extends('layout.app')
+<?php $__env->startSection('title', 'Kategori'); ?>
 
-@section('title', 'Kategori')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <!-- Link ke file CSS terpisah -->
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/styles.css')); ?>">
 
     <div class="container">
         <h1 class="text-3xl font-bold mb-4">Kategori</h1>
 
         <!-- Tombol untuk Create Kategori Baru dan Trash -->
         <div class="mb-4 d-flex gap-2">
-            <a href="{{ route('kategori.create') }}" class="btn btn-primary">Create Kategori</a>
-            <a href="{{ route('kategori.trash') }}" class="btn btn-danger">Lihat Trash</a>
+            <a href="<?php echo e(route('kategori.create')); ?>" class="btn btn-primary">Create Kategori</a>
+            <a href="<?php echo e(route('kategori.trash')); ?>" class="btn btn-danger">Lihat Trash</a>
         </div>
 
         <!-- Tabel Daftar Kategori -->
@@ -48,8 +46,8 @@
                         <td>
                             <a href="/kategori/${category.id_kategori}/edit" class="btn btn-warning btn-sm">Edit</a>
                             <form action="/kategori/${category.id_kategori}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus kategori ini?')">
-                                @csrf
-                                @method('DELETE')
+                                <?php echo csrf_field(); ?>
+                                <?php echo method_field('DELETE'); ?>
                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </td>
@@ -61,4 +59,6 @@
                 console.error('Error fetching categories:', error);
             });
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\Coding\katalogmakanan-PraktikumRPL\katalogmakanan\resources\views/kategori/index.blade.php ENDPATH**/ ?>

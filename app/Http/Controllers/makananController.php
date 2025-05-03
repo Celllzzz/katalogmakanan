@@ -20,6 +20,19 @@ class makananController extends Controller
         return response()->json($makanan);
     }
 
+    // menampilkan data berdasarkan ID
+    public function show($id)
+    {
+        $makanan = Makanan::with('kategori')->find($id);
+
+        if (!$makanan) {
+            return response()->json(['message' => 'Data tidak ditemukan'], 404);
+        }
+
+        return response()->json($makanan);
+    }
+
+
     public function create()
     {   
         $kategori = kategori::all();
