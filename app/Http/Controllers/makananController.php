@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Models\makanan;
 use App\Models\kategori;
-use GuzzleHttp\Psr7\Query;
+
 
 class makananController extends Controller
 {
@@ -74,39 +75,22 @@ class makananController extends Controller
     }
 
 
-    // mencari makanan berdasarkan nama dan kategori
-    public function search(request $request)
+    //search
+    public function search(Request $request): JsonResponse
     {
-        // validasi input pencarian
-        $request->validate([
-            'nama_makanan' => 'nullable|string',
-            'nama_kategori' => 'nullable|string'
-        ]);
-
-        // query awal dengan relasi ke kategori
-        $query = makanan::with('kategori');
-
-        // filter berdasarkan nama makanan jika ada
-        if ($request->has('nama_makanan')) {
-            $query->where('nama_makanan', 'like', '%' . $request->nama_makanan . '%');
+        $query = $request->input('search');
+        
+        if (empty($query)) {
+            return response()->json(['message' => 'Search query is required'], 422);
         }
         
-        // filter berdasarkan nama kategori jika ada
-        if ($request->has('nama_kategori')) {
-            $query->whereHas('kategori', function ($q) use ($request){
-                $q->where('nama_kategori', 'like', '%' . $request->nama_kategori . '%');
-            });
-        }
-
-        // eksekusi query
-        $makanan = $query->get();
-
-        // jika hasil kosong, kirim pesan error
-        if ($makanan->isEmpty()) {
-            return response()->json(['message' => 'Makanan tidak ditemukan'], 404);
-        }
-
-        return response()->json($makanan);
+        $makananResults = makanan::search($query)->raw();
+        $kategoriResults = Kategori::search($query)->get();
+        
+        return response()->json([
+            'makanan' => $makananResults,
+            'kategori' => $kategoriResults,
+        ]);
     }
 
     public function edit($id)

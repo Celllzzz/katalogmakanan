@@ -35,16 +35,32 @@
                         <td><?php echo e($item->nama_kategori); ?></td>
                         <td><?php echo e(Str::limit($item->deskripsi, 50)); ?></td>
                         <td><?php echo e($item->deleted_at->format('d/m/Y')); ?></td>
-                        <td>
-                            <form action="<?php echo e(route('kategori.restore', $item->id_kategori)); ?>" method="POST" style="display:inline;">
-                                <?php echo csrf_field(); ?>
-                                <button type="submit" class="btn btn-success btn-sm">Restore</button>
-                            </form>
-                            <form action="<?php echo e(route('kategori.forceDelete', $item->id_kategori)); ?>" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini secara permanen?');">
-                                <?php echo csrf_field(); ?>
-                                <?php echo method_field('DELETE'); ?>
-                                <button type="submit" class="btn btn-danger btn-sm">Hapus Permanen</button>
-                            </form>
+                        <td class="text-center" style="min-width: 160px;">
+                            <div class="d-flex justify-content-center gap-2">
+                                <!-- Tombol Restore -->
+                                <form action="<?php echo e(route('kategori.restore', $item->id_kategori)); ?>" method="POST" class="d-inline">
+                                    <?php echo csrf_field(); ?>
+                                    <button type="submit" class="btn btn-success btn-sm d-flex align-items-center justify-content-center px-2" style="min-width: 75px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-arrow-counterclockwise me-1" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"/>
+                                            <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/>
+                                        </svg>
+                                        Restore
+                                    </button>
+                                </form>
+
+                                <!-- Tombol Force Delete -->
+                                <form action="<?php echo e(route('kategori.forceDelete', $item->id_kategori)); ?>" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini secara permanen?');">
+                                    <?php echo csrf_field(); ?>
+                                    <?php echo method_field('DELETE'); ?>
+                                    <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center justify-content-center px-2" style="min-width: 75px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x me-1" viewBox="0 0 16 16">
+                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                        </svg>
+                                        Hapus
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>

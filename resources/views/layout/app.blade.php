@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title') - Admin Panel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="{{ asset('pictures/logo(2).png') }}">
+    <link rel="icon" href="{{ asset('pictures/favicon.ico') }}" type="image/x-icon">
     
     <!-- Link ke file CSS terpisah -->
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
@@ -37,11 +37,9 @@
 
         <!-- Main content -->
         <div class="flex-grow-1 d-flex flex-column">
-            <!-- Topbar -->
-            @include('components.topbar')
 
             <!-- Page content -->
-            <main class="p-4 flex-grow-1">
+            <main class="p-4 flex-grow-1 style="overflow: visible;"">
                 @yield('content')
             </main>
         </div>

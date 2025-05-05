@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class makanan extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Searchable;
 
     protected $table = 'makanan';
     protected $primaryKey = 'id_makanan';
@@ -17,5 +18,12 @@ class makanan extends Model
 
     public function kategori(){
         return $this->belongsTo(kategori::class, 'id_kategori', 'id_kategori');
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'nama_makanan' => $this->nama_makanan
+        ];
     }
 }

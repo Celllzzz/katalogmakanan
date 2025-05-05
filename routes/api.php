@@ -22,7 +22,7 @@ Route::get('makanan', [makananController::class, 'index']);
 Route::get('/makanan/{id}', [MakananController::class, 'show']);
 
 // GET /api/makanan - mencari makanan berdasarkan nama dan kategori
-Route::get('makanan/search', [makananController::class, 'search']);
+Route::get('/search', [MakananController::class, 'search']);
 
 /*
 |-------------
@@ -32,3 +32,6 @@ Route::get('makanan/search', [makananController::class, 'search']);
 
 // GET /api/kategori - Menampilkan semua kategori makanan
 Route::get('kategori', [kategoriController::class, 'index']);
+
+// GET /api/kategori/{id} - menampilkan data kategori berdasarkan ID
+Route::get('/kategori/{id}', [KategoriController::class, 'show']);

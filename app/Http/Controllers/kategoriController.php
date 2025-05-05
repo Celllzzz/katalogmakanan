@@ -14,7 +14,17 @@ class kategoriController extends Controller
         return response()->json(kategori::all());
     }
 
-   
+    public function show($id)
+    {
+        $kategori = Kategori::with('makanan')->find($id);
+
+        if (!$kategori) {
+            return response()->json(['message' => 'Data tidak ditemukan'], 404);
+        }
+
+        return response()->json($kategori);
+    }
+
     public function create()
     {
         return view('kategori.create');

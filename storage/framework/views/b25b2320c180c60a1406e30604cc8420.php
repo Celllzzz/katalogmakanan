@@ -20,7 +20,7 @@
             justify-content: center;
         }
         .login-card {
-            max-width: 400px;
+            max-width: 440px;
             width: 100%;
             padding: 2rem;
             background: #fff;

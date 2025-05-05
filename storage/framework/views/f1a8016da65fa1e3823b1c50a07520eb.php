@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $__env->yieldContent('title'); ?> - Admin Panel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="<?php echo e(asset('pictures/logo(2).png')); ?>">
+    <link rel="icon" href="<?php echo e(asset('pictures/favicon.ico')); ?>" type="image/x-icon">
     
     <!-- Link ke file CSS terpisah -->
     <link rel="stylesheet" href="<?php echo e(asset('css/styles.css')); ?>">
@@ -37,11 +37,9 @@
 
         <!-- Main content -->
         <div class="flex-grow-1 d-flex flex-column">
-            <!-- Topbar -->
-            <?php echo $__env->make('components.topbar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
             <!-- Page content -->
-            <main class="p-4 flex-grow-1">
+            <main class="p-4 flex-grow-1 style="overflow: visible;"">
                 <?php echo $__env->yieldContent('content'); ?>
             </main>
         </div>

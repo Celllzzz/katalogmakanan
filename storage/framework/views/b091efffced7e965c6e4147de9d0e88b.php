@@ -1,24 +1,22 @@
-@extends('layout.app')
+<?php $__env->startSection('title', 'Edit Kategori'); ?>
 
-@section('title', 'Edit Kategori')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="container">
     <h1 class="mb-4">Edit Kategori</h1>
 
-    <form method="POST" action="{{ route('kategori.update', $kategori->id_kategori) }}">
-        @csrf
-        @method('PUT')
+    <form method="POST" action="<?php echo e(route('kategori.update', $kategori->id_kategori)); ?>">
+        <?php echo csrf_field(); ?>
+        <?php echo method_field('PUT'); ?>
 
         <div class="mb-3">
             <label for="nama_kategori" class="form-label">Nama Kategori</label>
             <input type="text" class="form-control" id="nama_kategori" name="nama_kategori"
-                value="{{ old('nama_kategori', $kategori->nama_kategori) }}" required>
+                value="<?php echo e(old('nama_kategori', $kategori->nama_kategori)); ?>" required>
         </div>
 
         <div class="mb-3">
             <label for="deskripsi" class="form-label">Deskripsi</label>
-            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="4" required>{{ old('deskripsi', $kategori->deskripsi) }}</textarea>
+            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="4" required><?php echo e(old('deskripsi', $kategori->deskripsi)); ?></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary d-inline-flex align-items-center">
@@ -29,7 +27,7 @@
             Update
         </button>
 
-        <a href="{{ route('kategori.index') }}" class="btn btn-secondary d-inline-flex align-items-center">
+        <a href="<?php echo e(route('kategori.index')); ?>" class="btn btn-secondary d-inline-flex align-items-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-arrow-left-circle me-2" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
             </svg>
@@ -37,4 +35,6 @@
         </a>
     </form>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\Coding\katalogmakanan-PraktikumRPL\katalogmakanan\resources\views/kategori/edit.blade.php ENDPATH**/ ?>
