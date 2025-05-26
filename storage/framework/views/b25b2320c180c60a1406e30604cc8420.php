@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="<?php echo e(asset('pictures/logo(2).png')); ?>">
+    <link rel="icon" href="<?php echo e(asset('pictures/favicon.ico')); ?>" type="image/x-icon">
 
     <style>
         body {
@@ -20,7 +20,7 @@
             justify-content: center;
         }
         .login-card {
-            max-width: 440px;
+            max-width: 530px;
             width: 100%;
             padding: 2rem;
             background: #fff;
@@ -50,8 +50,8 @@
 
     <div class="login-card text-center">
         <img src="<?php echo e(asset('pictures/logo(1).png')); ?>" alt="Logo" class="logo mx-auto d-block">
-        <h5 class="mt-3 fw-bold">WELCOME BACK, ADMIN!</h5>
-        <p class="text-muted mb-4">Enter your credentials to access your account</p>
+        <h5 class="mt-3 fw-bold">Selamat Datang, ADMIN!</h5>
+        <p class="text-muted mb-4">Masukkan kredensial Anda untuk mengakses akun Anda</p>
 
         <?php if($errors->any()): ?>
             <div class="alert alert-danger">
@@ -64,15 +64,15 @@
             <?php echo csrf_field(); ?>
             <div class="mb-3 text-start">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required value="<?php echo e(old('email')); ?>">
+                <input type="email" name="email" class="form-control" id="email" placeholder="Masukkan Email Anda" required value="<?php echo e(old('email')); ?>">
             </div>
 
             <div class="mb-4 text-start">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password" required>
+                <label for="password" class="form-label">Kata Sandi</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan Kata Sandi Anda" required>
             </div>
 
-            <button type="submit" class="btn btn-orange w-100">SIGN IN</button>
+            <button type="submit" class="btn btn-orange w-100">Masuk</button>
         </form>
     </div>
 

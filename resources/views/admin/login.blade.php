@@ -20,7 +20,7 @@
             justify-content: center;
         }
         .login-card {
-            max-width: 440px;
+            max-width: 530px;
             width: 100%;
             padding: 2rem;
             background: #fff;
@@ -50,8 +50,8 @@
 
     <div class="login-card text-center">
         <img src="{{ asset('pictures/logo(1).png') }}" alt="Logo" class="logo mx-auto d-block">
-        <h5 class="mt-3 fw-bold">WELCOME BACK, ADMIN!</h5>
-        <p class="text-muted mb-4">Enter your credentials to access your account</p>
+        <h5 class="mt-3 fw-bold">Selamat Datang, ADMIN!</h5>
+        <p class="text-muted mb-4">Masukkan kredensial Anda untuk mengakses akun Anda</p>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -63,15 +63,15 @@
             @csrf
             <div class="mb-3 text-start">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required value="{{ old('email') }}">
+                <input type="email" name="email" class="form-control" id="email" placeholder="Masukkan Email Anda" required value="{{ old('email') }}">
             </div>
 
             <div class="mb-4 text-start">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password" required>
+                <label for="password" class="form-label">Kata Sandi</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan Kata Sandi Anda" required>
             </div>
 
-            <button type="submit" class="btn btn-orange w-100">SIGN IN</button>
+            <button type="submit" class="btn btn-orange w-100">Masuk</button>
         </form>
     </div>
 
